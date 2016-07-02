@@ -7,7 +7,7 @@ import me.jamesxu.reduxlib.store.Store;
 /**
  * Created by mobilexu on 2/7/16.
  */
-public class BaseAction {
+public class Action {
 
     private int type;
     private HashMap<String, Object> hashMap;
@@ -34,12 +34,12 @@ public class BaseAction {
         return hashMap;
     }
 
-    public BaseAction createAction(int type) {
+    public Action createAction(int type) {
         this.type = type;
         return this;
     }
 
-    public void dispatch(BaseAction action) {
+    public void dispatch(Action action) {
         Store.getInstance().dispatch(action);
     }
 }

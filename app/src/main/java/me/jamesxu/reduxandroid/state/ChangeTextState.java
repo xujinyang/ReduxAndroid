@@ -9,6 +9,9 @@ public class ChangeTextState implements State {
 
     private boolean isLoading;
     private String text;
+    private String A;
+    private String B;
+
 
     public ChangeTextState(boolean isLoading, String text) {
         this.isLoading = isLoading;

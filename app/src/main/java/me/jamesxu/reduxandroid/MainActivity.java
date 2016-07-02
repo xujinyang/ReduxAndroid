@@ -5,7 +5,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import me.jamesxu.reduxandroid.action.ChangeTextAction;
-import me.jamesxu.reduxandroid.reduce.ChangeReduce;
+import me.jamesxu.reduxandroid.reduce.ChangeTextReduce;
 import me.jamesxu.reduxandroid.state.ChangeTextState;
 import me.jamesxu.reduxlib.BaseReduxActivity;
 import me.jamesxu.reduxlib.store.Store;
@@ -13,7 +13,7 @@ import me.jamesxu.reduxlib.store.Store;
 public class MainActivity extends BaseReduxActivity<ChangeTextState> {
 
     private TextView buttonOne;
-    private ChangeReduce reduce;
+    private ChangeTextReduce reduce;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,10 +21,11 @@ public class MainActivity extends BaseReduxActivity<ChangeTextState> {
         setContentView(R.layout.activity_main);
         buttonOne = (TextView) findViewById(R.id.buttonOne);
         init();
+        render(null);
     }
 
     private void init() {
-        reduce = new ChangeReduce();
+        reduce = new ChangeTextReduce();
         Store.getInstance().addReduce(reduce);
 
         buttonOne.setOnClickListener(new View.OnClickListener() {
@@ -33,11 +34,6 @@ public class MainActivity extends BaseReduxActivity<ChangeTextState> {
                 new ChangeTextAction().changeText();
             }
         });
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
     }
 
     private void render(ChangeTextState state) {

@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.greenrobot.event.EventBus;
-import me.jamesxu.reduxlib.action.BaseAction;
-import me.jamesxu.reduxlib.reduce.IReduce;
+import me.jamesxu.reduxlib.action.Action;
+import me.jamesxu.reduxlib.reduce.Reduce;
 import me.jamesxu.reduxlib.state.State;
 
 /**
@@ -16,7 +16,7 @@ public class Store {
     private static Store defaultInstance;
     private EventBus eventBus;
 
-    private List<IReduce> iReducers;
+    private List<Reduce> reducers;
 
     public static Store getInstance() {
         if (defaultInstance == null) {
@@ -31,43 +31,43 @@ public class Store {
 
     private Store() {
         eventBus = EventBus.getDefault();
-        iReducers = new ArrayList<>();
+        reducers = new ArrayList<>();
     }
 
     /**
      * 合并reduce
      *
-     * @param iReduceList
+     * @param reduceList
      */
-    public void combineReducers(IReduce... iReduceList) {
-        for (IReduce reduce : iReduceList) {
-            iReducers.add(reduce);
+    public void combineReducers(Reduce... reduceList) {
+        for (Reduce reduce : reduceList) {
+            reducers.add(reduce);
         }
     }
 
     /**
      * 添加单个reduce
      *
-     * @param iReduce
+     * @param reduce
      */
-    public void addReduce(IReduce iReduce) {
-        iReducers.add(iReduce);
+    public void addReduce(Reduce reduce) {
+        reducers.add(reduce);
     }
 
     /**
      * 移除单个Reduce
      *
-     * @param iReduce
+     * @param reduce
      */
-    public void removeReduce(IReduce iReduce) {
-        iReducers.remove(iReduce);
+    public void removeReduce(Reduce reduce) {
+        reducers.remove(reduce);
     }
 
     /**
      * 清空reducers
      */
     public void clearAllReduce() {
-        iReducers.clear();
+        reducers.clear();
     }
 
     /**
@@ -75,10 +75,13 @@ public class Store {
      *
      * @param action
      */
-    public void dispatch(BaseAction action) {
-        for (IReduce iReduce : iReducers) {
-            State localState = iReduce.handleAction(action);
-            eventBus.post(localState);
+    public void dispatch(Action action) {
+        for (Reduce reduce : reducers) {
+            State localState = reduce.handleAction(action);
+            if (localState != null) {
+                eventBus.post(localState);
+            }
+
         }
     }
 }
