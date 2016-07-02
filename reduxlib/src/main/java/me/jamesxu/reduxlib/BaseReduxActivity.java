@@ -9,10 +9,9 @@ import de.greenrobot.event.EventBus;
 /**
  * Created by mobilexu on 30/6/16.
  */
-public abstract class BaseReduxActivity<T> extends AppCompatActivity {
+public abstract class BaseReduxActivity extends AppCompatActivity {
 
     public EventBus eventBus;
-    private T state;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -32,19 +31,19 @@ public abstract class BaseReduxActivity<T> extends AppCompatActivity {
 
     }
 
-    /**
-     * 接收想要监听的状态变化
-     *
-     * @param state
-     */
-    public void onEvent(T state) {
-        this.state = state;
-        onStateChange();
-    }
+//    /**
+//     * 接收想要监听的状态变化
+//     *
+//     * @param state
+//     */
+//    public void onEvent(T state) {
+//        this.state = state;
+//        onStateChange();
+//    }
 
-    public T getState() {
-        return state;
-    }
+//    public T getState() {
+//        return state;
+//    }
 
     protected abstract void onStateChange();
 }

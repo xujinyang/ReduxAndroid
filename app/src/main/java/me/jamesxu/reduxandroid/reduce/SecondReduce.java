@@ -9,18 +9,19 @@ import me.jamesxu.reduxlib.state.State;
 /**
  * Created by mobilexu on 2/7/16.
  */
-public class ChangeTextReduce implements Reduce {
+public class SecondReduce implements Reduce {
 
-    public static final int ACTION_SHOWLOADING = 0;
-    public static final int ACTION_SHOWTEXT = 1;
+
+    public static final int ACTION_SECOND_SHOWLOADING = 3;
+    public static final int ACTION_SECOND_SHOWTEXT = 4;
 
     @Override
     public State handleAction(Action action) {
         switch (action.getType()) {
-            case ACTION_SHOWLOADING:
-                return new ChangeTextState(true, null);
-            case ACTION_SHOWTEXT:
-                return new ChangeTextState(false, action.getHashMap().get("text").toString());
+            case ACTION_SECOND_SHOWLOADING:
+                return new SecondState(true, null);
+            case ACTION_SECOND_SHOWTEXT:
+                return new SecondState(false, action.getHashMap().get("text").toString());
             default:
                 return null;
         }

@@ -5,14 +5,12 @@ import me.jamesxu.reduxlib.state.State;
 /**
  * Created by mobilexu on 2/7/16.
  */
-public class ChangeTextState implements State {
-
+public class SecondState implements State {
     private boolean isLoading;
     private String text;
 
 
-
-    public ChangeTextState(boolean isLoading, String text) {
+    public SecondState(boolean isLoading, String text) {
         this.isLoading = isLoading;
         this.text = text;
     }
