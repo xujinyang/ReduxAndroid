@@ -10,7 +10,12 @@
     tools:context="me.jamesxu.reduxandroid.MainActivity">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:id="@+id/buttonOne"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:background="@color/colorPrimary"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="Hello World!"
+        android:textColor="#FFFFFF" />
 </RelativeLayout>
