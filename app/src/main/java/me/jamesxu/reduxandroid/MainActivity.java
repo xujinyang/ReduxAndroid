@@ -4,26 +4,33 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import me.jamesxu.reduxandroid.action.ChangeTextAction;
+import me.jamesxu.reduxandroid.reduce.ChangeReduce;
+import me.jamesxu.reduxandroid.state.ChangeTextState;
 import me.jamesxu.reduxlib.BaseReduxActivity;
-import me.jamesxu.reduxlib.Store;
+import me.jamesxu.reduxlib.store.Store;
 
-public class MainActivity extends BaseReduxActivity {
+public class MainActivity extends BaseReduxActivity<ChangeTextState> {
 
     private TextView buttonOne;
-    private Store store;
     private ChangeReduce reduce;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         buttonOne = (TextView) findViewById(R.id.buttonOne);
+        init();
+    }
+
+    private void init() {
+        reduce = new ChangeReduce();
+        Store.getInstance().addReduce(reduce);
 
         buttonOne.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                eventBus.post(new ChangeTextEvent());
+                new ChangeTextAction().changeText();
             }
         });
     }
@@ -31,11 +38,6 @@ public class MainActivity extends BaseReduxActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        store.register(this);
-    }
-
-    public void onStateChange(ChangeTextState state) {
-        render(state);
     }
 
     private void render(ChangeTextState state) {
@@ -46,17 +48,16 @@ public class MainActivity extends BaseReduxActivity {
         } else {
             buttonOne.setText(state.getText());
         }
-
     }
 
     @Override
-    protected void componentWillReceiveProps() {
-
+    protected void onStateChange() {
+        render(getState());
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        store.unRegister(reduce);
+        Store.getInstance().removeReduce(reduce);
     }
 }

@@ -1,12 +1,19 @@
-package me.jamesxu.reduxandroid;
+package me.jamesxu.reduxandroid.state;
+
+import me.jamesxu.reduxlib.state.State;
 
 /**
  * Created by mobilexu on 2/7/16.
  */
-public class ChangeTextState {
+public class ChangeTextState implements State {
 
     private boolean isLoading;
     private String text;
+
+    public ChangeTextState(boolean isLoading, String text) {
+        this.isLoading = isLoading;
+        this.text = text;
+    }
 
     public boolean isLoading() {
         return isLoading;
