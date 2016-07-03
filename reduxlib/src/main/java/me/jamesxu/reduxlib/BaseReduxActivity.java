@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
 import de.greenrobot.event.EventBus;
+import me.jamesxu.reduxlib.state.State;
 
 /**
  * Created by mobilexu on 30/6/16.
@@ -31,19 +32,14 @@ public abstract class BaseReduxActivity extends AppCompatActivity {
 
     }
 
-//    /**
-//     * 接收想要监听的状态变化
-//     *
-//     * @param state
-//     */
-//    public void onEvent(T state) {
-//        this.state = state;
-//        onStateChange();
-//    }
+    /**
+     * 接收想要监听的状态变化
+     *
+     * @param state
+     */
+    public void onEvent(State state) {
+        onStateChange(state);
+    }
 
-//    public T getState() {
-//        return state;
-//    }
-
-    protected abstract void onStateChange();
+    protected abstract void onStateChange(State state);
 }

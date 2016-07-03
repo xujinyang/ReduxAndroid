@@ -4,10 +4,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-import me.jamesxu.reduxandroid.action.SecondAction;
+import me.jamesxu.reduxandroid.action.SecondActionCreater;
 import me.jamesxu.reduxandroid.reduce.SecondReduce;
 import me.jamesxu.reduxandroid.state.SecondState;
 import me.jamesxu.reduxlib.BaseReduxActivity;
+import me.jamesxu.reduxlib.state.State;
 import me.jamesxu.reduxlib.store.Store;
 
 public class SecondActivity extends BaseReduxActivity {
@@ -31,7 +32,7 @@ public class SecondActivity extends BaseReduxActivity {
         ButtonTwo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new SecondAction().changeText();
+                new SecondActionCreater().changeText();
             }
         });
     }
@@ -47,16 +48,10 @@ public class SecondActivity extends BaseReduxActivity {
     }
 
     @Override
-    protected void onStateChange() {
-    }
-
-    /**
-     * 接收想要监听的状态变化
-     *
-     * @param state
-     */
-    public void onEvent(SecondState state) {
-        render(state);
+    protected void onStateChange(State state) {
+        if (state instanceof SecondState) {
+            render((SecondState) state);
+        }
     }
 
     @Override

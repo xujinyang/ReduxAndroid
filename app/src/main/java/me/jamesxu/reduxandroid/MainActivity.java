@@ -5,11 +5,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-import me.jamesxu.reduxandroid.action.ChangeTextAction;
+import me.jamesxu.reduxandroid.action.ChangeTextActionCreater;
 import me.jamesxu.reduxandroid.reduce.ChangeTextReduce;
 import me.jamesxu.reduxandroid.state.ChangeTextState;
 import me.jamesxu.reduxandroid.state.SecondState;
 import me.jamesxu.reduxlib.BaseReduxActivity;
+import me.jamesxu.reduxlib.state.State;
 import me.jamesxu.reduxlib.store.Store;
 
 public class MainActivity extends BaseReduxActivity {
@@ -35,7 +36,7 @@ public class MainActivity extends BaseReduxActivity {
         buttonOne.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new ChangeTextAction().changeText();
+                new ChangeTextActionCreater().changeText();
             }
         });
 
@@ -58,25 +59,12 @@ public class MainActivity extends BaseReduxActivity {
     }
 
     @Override
-    protected void onStateChange() {
-    }
-
-    /**
-     * 接收想要监听的状态变化
-     *
-     * @param state
-     */
-    public void onEvent(ChangeTextState state) {
-        render(state);
-    }
-
-    /**
-     * 接收想要监听的状态变化
-     *
-     * @param state
-     */
-    public void onEvent(SecondState state) {
-        renderSecond(state);
+    protected void onStateChange(State state) {
+        if (state instanceof ChangeTextState) {
+            render((ChangeTextState) state);
+        } else if (state instanceof SecondState) {
+            renderSecond((SecondState) state);
+        }
     }
 
     private void renderSecond(SecondState state) {
