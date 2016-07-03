@@ -27,11 +27,6 @@ public abstract class BaseReduxActivity extends AppCompatActivity {
         eventBus.unregister(this);
     }
 
-    //EventBus至少有一个onEvent方法
-    public void onEvent(String defaultEvent) {
-
-    }
-
     /**
      * 接收想要监听的状态变化
      *

@@ -35,6 +35,4 @@ public class Action {
     public HashMap<String, Object> getHashMap() {
         return hashMap;
     }
-
-
 }
